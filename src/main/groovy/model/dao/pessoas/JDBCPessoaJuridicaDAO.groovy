@@ -30,7 +30,7 @@ class JDBCPessoaJuridicaDAO implements  PessoaDAO{
                 empresa.setNome(resultado.getString("nome"))
                 empresa.setCnpj(resultado.getString("cnpj"))
                 empresa.setEmail(resultado.getString("email"))
-                empresa.setEstado(resultado.getString("pais"))
+                empresa.setPais(resultado.getString("pais"))
                 empresa.setCep(resultado.getString("cep"))
                 empresa.setDescricao(resultado.getString("descricao"))
 

@@ -1,5 +1,12 @@
-import PessoaFisica from '../../pessoas/pessoaFisica.js';
-import ListaDePessoas from '../../pessoas/listaDePessoas.js';
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const nome = document.querySelector('#nome');
 const email = document.querySelector('#email');
 const cpf = document.querySelector('#cpf');
@@ -7,15 +14,45 @@ const idade = document.querySelector('#idade');
 const estado = document.querySelector('#estado');
 const cep = document.querySelector('#cep');
 const descricao = document.querySelector('#descricao');
-const competencias = document.querySelector('#competencias');
 let botaoCadastra = document.querySelector('.botao_cadastrar');
 let link = document.querySelector('#link');
-const lista = new ListaDePessoas([], []);
 console.log(link);
 botaoCadastra.addEventListener('click', () => {
-    cadastraCandidato();
+    cadastraUsuario();
 });
-function validaCandidato(novoNome, novoEmail, novoCpf, novaIdade, novoEstado, novoCep, novaDescricao, novasCompetencias) {
+function cadastraUsuario() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let response;
+        let json;
+        try {
+            event === null || event === void 0 ? void 0 : event.preventDefault();
+            let url = "http://localhost:8080/candidatos";
+            const valida = validaCandidato(nome.value, email.value, cpf.value, idade.value, estado.value, cep.value, descricao.value);
+            const body = {
+                name: nome.value,
+                email: email.value,
+                cpf: cpf.value,
+                estado: estado.value,
+                cep: cep.value,
+                descricao: descricao.value
+            };
+            response = yield fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8',
+                },
+                body: JSON.stringify(body),
+            });
+            json = yield response.json();
+            console.log(body);
+        }
+        catch (error) {
+            json = null;
+            console.log(error);
+        }
+    });
+}
+function validaCandidato(novoNome, novoEmail, novoCpf, novaIdade, novoEstado, novoCep, novaDescricao) {
     const regexNome = /(?=^.{2,60}$)^[A-Z][a-z]+(?:[ ][A-Z][a-z]+)*$/; // /[A-Z]{1}[a-z]{2,10} [A-Z]{1}[a-z]{2,10}/
     const regexEmail = /(\S+@\w+\.\w{2,6}(\.\w{2})?)/g;
     const regexCpf = /\d{3}\.?\d{3}\.?\d{3}-?\d{2}/;
@@ -56,35 +93,4 @@ function validaCandidato(novoNome, novoEmail, novoCpf, novaIdade, novoEstado, no
         return true;
     }
 }
-function cadastraCandidato() {
-    let novoNome = nome.value;
-    let novoEmail = email.value;
-    let novoCpf = cpf.value;
-    let novaIdade = idade.value;
-    let novoEstado = estado.value;
-    let novoCep = cep.value;
-    let novaDescricao = descricao.value;
-    let novasCompetencias = [];
-    novasCompetencias.push(competencias.value);
-    const valida = validaCandidato(novoNome, novoEmail, novoCpf, novaIdade, novoEstado, novoCep, novaDescricao, novasCompetencias);
-    if (valida) {
-        const novoCandidato = new PessoaFisica(novoNome, novoEmail, novoCpf, novaIdade, novoEstado, novoCep, novaDescricao, novasCompetencias);
-        lista.cadastraCandidato(novoCandidato);
-        alert('Cadastro realizado com sucesso!');
-    }
-}
-const data = { name: 'Lucas Hideki', email: 'hideki-abe@hotmail.com', cpf: '03962171177', estado: 'GO', cep: '74455050', descricao: 'Engenheiro' };
-fetch('https://localhost:8080/zghero/candidatos', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-})
-    .then(response => response.json())
-    .then(data => {
-    console.log('Success:', data);
-})
-    .catch(error => {
-    console.error('Error:', error);
-});
+export {};

@@ -8,17 +8,59 @@ const idade = <HTMLSelectElement>document.querySelector('#idade')
 const estado = <HTMLSelectElement>document.querySelector('#estado')
 const cep = <HTMLSelectElement>document.querySelector('#cep')
 const descricao = <HTMLSelectElement>document.querySelector('#descricao')
-const competencias = <HTMLSelectElement>document.querySelector('#competencias')
 let botaoCadastra = <HTMLElement>document.querySelector('.botao_cadastrar')
 let link = document.querySelector('#link') as HTMLAnchorElement
-
-const lista = new ListaDePessoas([], [])
 
 console.log(link)
 
 botaoCadastra.addEventListener('click', () => {
-  cadastraCandidato()
+  cadastraUsuario()
 })
+
+async function cadastraUsuario() {
+  let response
+  let json
+  try{
+    event?.preventDefault()
+    let url = "http://localhost:8080/candidatos"
+
+    const valida = validaCandidato(
+      nome.value,
+      email.value,
+      cpf.value,
+      idade.value,
+      estado.value,
+      cep.value,
+      descricao.value,
+    )
+
+    const body = {
+      name: nome.value,
+      email: email.value,
+      cpf: cpf.value,
+      estado: estado.value,
+      cep: cep.value,
+      descricao: descricao.value
+    }
+
+    response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(body),
+    })
+
+    json = await response.json()
+
+    console.log(body)
+  }catch(error){
+    json = null
+    console.log(error)
+  }
+
+}
+
 
 function validaCandidato (
   novoNome: string,
@@ -28,7 +70,6 @@ function validaCandidato (
   novoEstado: string,
   novoCep: string,
   novaDescricao: string,
-  novasCompetencias: Array<string>
 ) {
   const regexNome = /(?=^.{2,60}$)^[A-Z][a-z]+(?:[ ][A-Z][a-z]+)*$/ // /[A-Z]{1}[a-z]{2,10} [A-Z]{1}[a-z]{2,10}/
   const regexEmail = /(\S+@\w+\.\w{2,6}(\.\w{2})?)/g
@@ -64,55 +105,5 @@ function validaCandidato (
     return true
   }
 }
-function cadastraCandidato () {
-  let novoNome = nome.value
-  let novoEmail = email.value
-  let novoCpf = cpf.value
-  let novaIdade = idade.value
-  let novoEstado = estado.value
-  let novoCep = cep.value
-  let novaDescricao = descricao.value
-  let novasCompetencias = []
-  novasCompetencias.push(competencias.value)
 
-  const valida = validaCandidato(
-    novoNome,
-    novoEmail,
-    novoCpf,
-    novaIdade,
-    novoEstado,
-    novoCep,
-    novaDescricao,
-    novasCompetencias
-  )
-  if (valida) {
-    const novoCandidato = new PessoaFisica(
-      novoNome,
-      novoEmail,
-      novoCpf,
-      novaIdade,
-      novoEstado,
-      novoCep,
-      novaDescricao,
-      novasCompetencias
-    )
-    lista.cadastraCandidato(novoCandidato)
-    alert('Cadastro realizado com sucesso!')
-  }
-}
 
-const data = {name: 'Lucas Hideki', email: 'hideki-abe@hotmail.com', cpf: '03962171177', estado: 'GO', cep: '74455050', descricao: 'Engenheiro'}
-fetch('https://localhost:8080/zghero/candidatos', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-})
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data)
-  })
-  .catch(error => {
-    console.error('Error:', error)
-  })

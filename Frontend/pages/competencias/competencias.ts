@@ -1,1 +1,0 @@
-let botaoCadastra = <HTMLElement>document.querySelector(".botao_cadastrar")

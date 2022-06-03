@@ -30,8 +30,8 @@ class PessoaJuridicaController extends HttpServlet{
             json += "\"name\": " + JSONObject.quote(empresa.getNome()) + ",\n";
             json += "\"email\": " + JSONObject.quote(empresa.getEmail()) + ",\n";
             json += "\"cnpj\": " + JSONObject.quote(empresa.getCnpj().toString()) + ",\n";
-            json += "\"pais\": " + JSONObject.quote(empresa.getPais().toString()) + ",\n";
-            json += "\"estado\": " + JSONObject.quote(empresa.getEstado()) + ",\n";
+            json += "\"pais\": " + JSONObject.quote(empresa.getPais()) + ",\n";
+            //json += "\"estado\": " + JSONObject.quote(empresa.getEstado()) + ",\n";
             json += "\"cep\": " + JSONObject.quote(empresa.getCep().toString()) + ",\n";
             json += "\"descricao\": " + JSONObject.quote(empresa.getDescricao()) + "\n";
             json += "},";

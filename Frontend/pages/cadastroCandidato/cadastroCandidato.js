@@ -22,26 +22,41 @@ botaoCadastra.addEventListener('click', () => {
 });
 function cadastraUsuario() {
     return __awaiter(this, void 0, void 0, function* () {
+        event === null || event === void 0 ? void 0 : event.preventDefault;
+        /*()
+      
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:3000/zghero/candidatos", true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(`name=${nome.value}&email=${email.value}&cpf=${cpf.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`
+          );
+      
+        console.log(`name=${nome.value}&email=${email.value}&cpf=${cpf.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`)
+        */
         let response;
         let json;
         try {
             event === null || event === void 0 ? void 0 : event.preventDefault();
-            let url = "http://localhost:8080/candidatos";
+            let url = "http://localhost:3000/zghero/candidatos" +
+                `?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&idade=${idade.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`;
             const valida = validaCandidato(nome.value, email.value, cpf.value, idade.value, estado.value, cep.value, descricao.value);
             const body = {
                 name: nome.value,
                 email: email.value,
+                idade: idade.value,
                 cpf: cpf.value,
                 estado: estado.value,
                 cep: cep.value,
                 descricao: descricao.value
             };
+            //fazer com AJAX
             response = yield fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-type': 'application/json; charset=utf-8',
+                    Mode: 'no-cors',
+                    'Content-type': 'application/json; charset=utf-8'
                 },
-                body: JSON.stringify(body),
+                body: JSON.stringify(body)
             });
             json = yield response.json();
             console.log(body);

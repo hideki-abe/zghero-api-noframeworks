@@ -52,8 +52,10 @@ class PessoaFisicaController extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "*");
         resp.setHeader("Content-Type", "x-requested-with");
+
 
         println "Cadastrando novo candidato!"
         String nome = req.getParameter("name")
@@ -68,15 +70,10 @@ class PessoaFisicaController extends HttpServlet{
         //(String nome, String email, cpf, int idade, String estado, cep, String descricao)
         Pessoa candidato = new PessoaFisica(nome, email, cpf, idade, estado, cep, descricao, senha)
 
+        println candidato
+
         candidatoDAO.inserir(candidato)
 
     }
 
-    @Override
-    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "*");
-        resp.setHeader("Content-Type", "x-requested-with");
-        super.doOptions(req, resp)
-    }
 }

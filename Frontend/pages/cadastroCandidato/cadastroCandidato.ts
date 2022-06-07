@@ -1,5 +1,6 @@
 import PessoaFisica from '../../pessoas/pessoaFisica.js'
 import ListaDePessoas from '../../pessoas/listaDePessoas.js'
+import $ from "jquery";
 
 const nome = <HTMLSelectElement>document.querySelector('#nome')
 const email = <HTMLSelectElement>document.querySelector('#email')
@@ -17,12 +18,25 @@ botaoCadastra.addEventListener('click', () => {
   cadastraUsuario()
 })
 
-async function cadastraUsuario() {
+async function cadastraUsuario () {
+  event?.preventDefault
+  
+  /*()
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://localhost:3000/zghero/candidatos", true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.send(`name=${nome.value}&email=${email.value}&cpf=${cpf.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`
+    );
+
+  console.log(`name=${nome.value}&email=${email.value}&cpf=${cpf.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`)
+  */
   let response
   let json
-  try{
+  try {
     event?.preventDefault()
-    let url = "http://localhost:8080/candidatos"
+    let url = "http://localhost:3000/zghero/candidatos" + 
+    `?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&idade=${idade.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`
 
     const valida = validaCandidato(
       nome.value,
@@ -31,30 +45,33 @@ async function cadastraUsuario() {
       idade.value,
       estado.value,
       cep.value,
-      descricao.value,
+      descricao.value
     )
 
     const body = {
       name: nome.value,
       email: email.value,
+      idade: idade.value,
       cpf: cpf.value,
       estado: estado.value,
       cep: cep.value,
       descricao: descricao.value
     }
 
+    //fazer com AJAX
     response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json; charset=utf-8',
+        Mode: 'no-cors',
+        'Content-type': 'application/json; charset=utf-8'
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(body)
     })
 
     json = await response.json()
 
     console.log(body)
-  }catch(error){
+  } catch (error) {
     json = null
     console.log(error)
   }
@@ -69,7 +86,7 @@ function validaCandidato (
   novaIdade: string,
   novoEstado: string,
   novoCep: string,
-  novaDescricao: string,
+  novaDescricao: string
 ) {
   const regexNome = /(?=^.{2,60}$)^[A-Z][a-z]+(?:[ ][A-Z][a-z]+)*$/ // /[A-Z]{1}[a-z]{2,10} [A-Z]{1}[a-z]{2,10}/
   const regexEmail = /(\S+@\w+\.\w{2,6}(\.\w{2})?)/g
@@ -105,5 +122,3 @@ function validaCandidato (
     return true
   }
 }
-
-

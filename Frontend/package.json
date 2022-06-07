@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "live-server"
+    "start": "npm run start-proxy-cors & npm run start-live-server",
+    "start-live-server": "live-server",
+    "start-proxy-cors": "no-cors-proxy -p 3000 -t http://localhost:8080"
   },
   "keywords": [],
   "author": "",

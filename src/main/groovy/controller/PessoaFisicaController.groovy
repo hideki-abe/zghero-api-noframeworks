@@ -52,7 +52,6 @@ class PessoaFisicaController extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "*");
         resp.setHeader("Content-Type", "x-requested-with");
 
@@ -62,13 +61,13 @@ class PessoaFisicaController extends HttpServlet{
         String email = req.getParameter("email")
         String cpf = req.getParameter("cpf")
         String idade = req.getParameter("idade")
-        String estado = req.getParameter("estado")
+        String pais = req.getParameter("pais")
         String cep = req.getParameter("cep")
         String descricao = req.getParameter("descricao")
         String senha = req.getParameter("senha")
 
         //(String nome, String email, cpf, int idade, String estado, cep, String descricao)
-        Pessoa candidato = new PessoaFisica(nome, email, cpf, idade, estado, cep, descricao, senha)
+        Pessoa candidato = new PessoaFisica(nome, email, cpf, idade, pais, cep, descricao, senha)
 
         println candidato
 

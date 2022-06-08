@@ -11,7 +11,7 @@ class Vaga {
     public Vaga(){
     }
 
-    public Vaga(String nome, String descricao, String lugar, int id_empresas, List competencias){
+    public Vaga(String nome, String descricao, String lugar, int id_empresas){
         this.nome = nome
         this.desc = descricao
         this.lugar = lugar

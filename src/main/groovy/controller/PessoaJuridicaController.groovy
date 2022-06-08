@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import model.dao.pessoas.PessoaDAO
 import model.factory.pessoas.PessoaJuridicaCC
+import model.pessoas.Pessoa
+import model.pessoas.PessoaFisica
 import model.pessoas.PessoaJuridica
 import org.json.JSONObject
 
@@ -39,6 +41,33 @@ class PessoaJuridicaController extends HttpServlet{
         json = json.substring(0, json.length() - 1)
         json+="]"
         resp.getOutputStream().println(json);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "*");
+        resp.setHeader("Content-Type", "x-requested-with");
+
+
+        println "Cadastrando novo candidato!"
+        String nome = req.getParameter("name")
+        String email = req.getParameter("email")
+        String cnpj = req.getParameter("cnpj")
+        String pais = req.getParameter("pais")
+        String estado = req.getParameter("estado")
+        String cep = req.getParameter("cep")
+        String descricao = req.getParameter("descricao")
+        String senha = req.getParameter("senha")
+
+        //(String nome, String email, cpf, int idade, String estado, cep, String descricao)
+        Pessoa empresa = new PessoaJuridica(nome, email, cnpj, pais, estado, cep, descricao, senha)
+
+        println empresa
+
+        empresaDAO.inserir(empresa)
+
     }
 
 

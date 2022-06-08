@@ -14,12 +14,13 @@ class PessoaJuridica implements Pessoa{
     private def cep
     private String descricao
     private List<Competencia> competencias = []
+    private String senha
 
     PessoaJuridica(){
     }
 
     PessoaJuridica(String nome, String email, cnpj, String pais,
-                   String estado, cep, String descricao, List<Competencia> competencias) {
+                   String estado, cep, String descricao, String senha) {
         this.nome = nome
         this.email = email
         this.cnpj = cnpj
@@ -92,6 +93,14 @@ class PessoaJuridica implements Pessoa{
 
     void setCompetencias(List<Competencia> competencias) {
         this.competencias = competencias
+    }
+
+    String getSenha() {
+        return senha
+    }
+
+    void setSenha(String senha) {
+        this.senha = senha
     }
 
     @Override

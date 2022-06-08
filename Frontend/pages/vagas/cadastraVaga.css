@@ -1,0 +1,44 @@
+body, html{
+    background: rgb(92, 91, 91);
+    background: linear-gradient(90deg, #fcff9e 0%, #c67700 100%);
+}
+
+.titulo {
+    font-size: 2em;
+    margin-top: 30vh;
+    text-align: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.painel_cadastro{
+    margin-top: 2rem;
+    width: 300px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    border-radius: 1em;
+
+}
+
+.form_cadastro{
+    margin-top: 1em;
+    text-align: center;
+    margin-bottom: 2em;
+   
+}
+
+.painel_vagas{
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    text-align: center;
+}
+
+.botao_cadastrar{
+    margin-left: 80px;
+    width: 150px;
+    height: 40px;
+}

@@ -11,7 +11,7 @@ const nome = document.querySelector('#nome');
 const email = document.querySelector('#email');
 const cpf = document.querySelector('#cpf');
 const idade = document.querySelector('#idade');
-const estado = document.querySelector('#estado');
+const pais = document.querySelector('#pais');
 const cep = document.querySelector('#cep');
 const descricao = document.querySelector('#descricao');
 let botaoCadastra = document.querySelector('.botao_cadastrar');
@@ -19,37 +19,37 @@ let link = document.querySelector('#link');
 console.log(link);
 botaoCadastra.addEventListener('click', () => {
     cadastraUsuario();
+    setTimeout(function () {
+        location.href = "../competencias/competencias.html";
+    }, 500);
 });
 function cadastraUsuario() {
     return __awaiter(this, void 0, void 0, function* () {
-        event === null || event === void 0 ? void 0 : event.preventDefault;
-        /*()
-      
+        /*
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:3000/zghero/candidatos", true);
         xhr.setRequestHeader("Content-type", "application/json");
-        xhr.send(`name=${nome.value}&email=${email.value}&cpf=${cpf.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`
+        xhr.send(`?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&pais=${pais.value}&cep=${cep.value}&descricao=${descricao.value}`
           );
       
-        console.log(`name=${nome.value}&email=${email.value}&cpf=${cpf.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`)
+        console.log(`?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&pais=${pais.value}&cep=${cep.value}&descricao=${descricao.value}`)
+      
         */
         let response;
         let json;
         try {
-            event === null || event === void 0 ? void 0 : event.preventDefault();
+            event === null || event === void 0 ? void 0 : event.preventDefault;
             let url = "http://localhost:3000/zghero/candidatos" +
-                `?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&idade=${idade.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`;
-            const valida = validaCandidato(nome.value, email.value, cpf.value, idade.value, estado.value, cep.value, descricao.value);
+                `?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&idade=${idade.value}&pais=${pais.value}&cep=${cep.value}&descricao=${descricao.value}`;
             const body = {
                 name: nome.value,
                 email: email.value,
                 idade: idade.value,
                 cpf: cpf.value,
-                estado: estado.value,
+                pais: pais.value,
                 cep: cep.value,
                 descricao: descricao.value
             };
-            //fazer com AJAX
             response = yield fetch(url, {
                 method: 'POST',
                 headers: {
@@ -59,11 +59,11 @@ function cadastraUsuario() {
                 body: JSON.stringify(body)
             });
             json = yield response.json();
-            console.log(body);
+            validaCandidato(nome.value, email.value, cpf.value, idade.value, pais.value, cep.value, descricao.value);
+            let myObj = { cpf: cpf.value };
+            localStorage.setItem('1', JSON.stringify(myObj));
         }
         catch (error) {
-            json = null;
-            console.log(error);
         }
     });
 }
@@ -104,7 +104,7 @@ function validaCandidato(novoNome, novoEmail, novoCpf, novaIdade, novoEstado, no
         alert('Descrição inválida!');
     }
     else {
-        link.href = '../perfilCandidato/perfilCandidato.html';
+        link.href = '../competencias/competencias.html';
         return true;
     }
 }

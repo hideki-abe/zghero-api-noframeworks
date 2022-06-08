@@ -13,12 +13,50 @@ let botaoCadastra = <HTMLElement>document.querySelector(".botao_cadastrar")
 let link = document.querySelector("#link") as HTMLAnchorElement
 
 
-botaoCadastra.addEventListener('click', () => {cadastraEmpresa()})
+botaoCadastra.addEventListener('click', () => {
+    cadastraEmpresa()
+    setTimeout(function() {
+        location.href="../vagas/cadastraVaga.html"
+      }, 500)
+})
 
-const lista = new ListaDePessoas([], [])
+async function cadastraEmpresa () {
+
+    let response
+    let json
+    try {
+      event?.preventDefault
+      let url = "http://localhost:3000/zghero/empresas" + 
+      `?name=${nome.value}&email=${email.value}&cnpj=${cnpj.value}&pais=${pais.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`
+    
+      response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Mode: 'no-cors',
+          'Content-type': 'application/json; charset=utf-8'
+        }
+      })
+  
+      json = await response.json()
+  
+      validaEmpresa(
+        nome.value,
+        email.value,
+        cnpj.value,
+        pais.value,
+        estado.value,
+        cep.value,
+        descricao.value
+      )
+  
+    } catch (error) {
+      //json = null
+      console.log(error)
+    }
+  }
 
 function validaEmpresa(novoNome:string, novoEmail:string, novoCnpj:string, 
-    novoPais:string, novoEstado:string, novoCep:string, novaDescricao:string, novasCompetencias:Array<string>){
+    novoPais:string, novoEstado:string, novoCep:string, novaDescricao:string){
 
         const regexNome =  /(?=^.{2,60}$)^[A-Z][a-z]+(?:[ ][A-Z][a-z]+)*$/ // /[A-Z]{1}[a-z]{2,10} [A-Z]{1}[a-z]{2,10}/
         const regexEmail = /(\S+@\w+\.\w{2,6}(\.\w{2})?)/g
@@ -27,7 +65,6 @@ function validaEmpresa(novoNome:string, novoEmail:string, novoCnpj:string,
         const regexEstado = /(?=^.{2,60}$)^[A-Z][a-z]+(?:[ ](?:das?|dos?|de|e|[A-Z][a-z]+))*$/
         const regexCep = /^[0-9]{5}-?[0-9]{3}$/
         const regexDescricao = /\w{1,15}/g
-        const regexComp = competencias.value.split(/,/)
         
         link.href = "./cadastroEmpresa.html"
         if(!regexNome.test(novoNome)){
@@ -56,31 +93,3 @@ function validaEmpresa(novoNome:string, novoEmail:string, novoCnpj:string,
             return true
         }
     }
-
-
-    function cadastraEmpresa() {
-    
-        let novoNome = nome.value
-        let novoEmail = email.value
-        let novoCnpj = cnpj.value
-        let novoPais = pais.value
-        let novoEstado = estado.value
-        let novoCep = cep.value
-        let novaDescricao = descricao.value
-        let novasCompetencias = []
-        novasCompetencias.push(competencias.value)
-    
-            const valida = validaEmpresa(novoNome, novoEmail, novoCnpj, novoPais, novoEstado, novoCep, novaDescricao, novasCompetencias);
-    
-            if(valida){
-                const novaEmpresa = new PessoaJuridica(novoNome, novoEmail, novoCnpj, novoPais, novoEstado, novoCep, novaDescricao, novasCompetencias);
-                lista.cadastraEmpresa(novaEmpresa)
-                alert("Cadastro realizado com sucesso!")
-            } 
-           
-    
-    }
-    export default function listaCandidatos() {
-        console.log(lista)
-    }
-    console.log(lista.empresas)

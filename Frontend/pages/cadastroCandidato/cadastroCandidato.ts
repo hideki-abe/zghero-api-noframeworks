@@ -6,7 +6,7 @@ const nome = <HTMLSelectElement>document.querySelector('#nome')
 const email = <HTMLSelectElement>document.querySelector('#email')
 const cpf = <HTMLSelectElement>document.querySelector('#cpf')
 const idade = <HTMLSelectElement>document.querySelector('#idade')
-const estado = <HTMLSelectElement>document.querySelector('#estado')
+const pais = <HTMLSelectElement>document.querySelector('#pais')
 const cep = <HTMLSelectElement>document.querySelector('#cep')
 const descricao = <HTMLSelectElement>document.querySelector('#descricao')
 let botaoCadastra = <HTMLElement>document.querySelector('.botao_cadastrar')
@@ -16,49 +16,41 @@ console.log(link)
 
 botaoCadastra.addEventListener('click', () => {
   cadastraUsuario()
+  setTimeout(function() {
+    location.href="../competencias/competencias.html"
+  }, 500)
+ 
 })
 
 async function cadastraUsuario () {
-  event?.preventDefault
-  
-  /*()
 
+  /*
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:3000/zghero/candidatos", true);
   xhr.setRequestHeader("Content-type", "application/json");
-  xhr.send(`name=${nome.value}&email=${email.value}&cpf=${cpf.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`
+  xhr.send(`?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&pais=${pais.value}&cep=${cep.value}&descricao=${descricao.value}`
     );
 
-  console.log(`name=${nome.value}&email=${email.value}&cpf=${cpf.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`)
+  console.log(`?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&pais=${pais.value}&cep=${cep.value}&descricao=${descricao.value}`)
+
   */
   let response
   let json
   try {
-    event?.preventDefault()
+    event?.preventDefault
     let url = "http://localhost:3000/zghero/candidatos" + 
-    `?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&idade=${idade.value}&estado=${estado.value}&cep=${cep.value}&descricao=${descricao.value}`
-
-    const valida = validaCandidato(
-      nome.value,
-      email.value,
-      cpf.value,
-      idade.value,
-      estado.value,
-      cep.value,
-      descricao.value
-    )
+    `?name=${nome.value}&email=${email.value}&cpf=${cpf.value}&idade=${idade.value}&pais=${pais.value}&cep=${cep.value}&descricao=${descricao.value}`
 
     const body = {
       name: nome.value,
       email: email.value,
       idade: idade.value,
       cpf: cpf.value,
-      estado: estado.value,
+      pais: pais.value,
       cep: cep.value,
       descricao: descricao.value
     }
 
-    //fazer com AJAX
     response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -70,12 +62,22 @@ async function cadastraUsuario () {
 
     json = await response.json()
 
-    console.log(body)
-  } catch (error) {
-    json = null
-    console.log(error)
-  }
+    validaCandidato(
+      nome.value,
+      email.value,
+      cpf.value,
+      idade.value,
+      pais.value,
+      cep.value,
+      descricao.value
+    )
 
+    let myObj = {cpf: cpf.value}
+    localStorage.setItem('1', JSON.stringify(myObj))
+
+  } catch (error) {
+
+  }
 }
 
 
@@ -118,7 +120,7 @@ function validaCandidato (
   } else if (!regexDescricao.test(novaDescricao)) {
     alert('Descrição inválida!')
   } else {
-    link.href = '../perfilCandidato/perfilCandidato.html'
+    link.href = '../competencias/competencias.html'
     return true
   }
 }

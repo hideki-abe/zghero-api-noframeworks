@@ -17,6 +17,7 @@ A etapa consistia em fazer uma API RESTful sem o uso de frameworks. A tentativa 
     - String url = "jdbc:postgresql://localhost:5432/postgres2"</br>
     - String user = "postgres"</br>
     - String password = "postgres"</br>
+  - Tenha certeza que o banco de dados utilizado seja o do <a href="https://github.com/hideki-abe/zghero-api-noframeworks/blob/master/linkedtinder.sql">sql</a>.
  
   O endpoint do Tomcat precisa ser: http://localhost:8080/zghero, para que a requisição no Frontend seja aplicável.
 Para executar o projeto, realize o seguinte comando no terminal da pasta "Frontend": **no-cors-proxy -p 3000 -t http://localhost:8080**. 

@@ -1,6 +1,9 @@
 # zghero-api-noframeworks
 Projeto do programa de aceleração da ZG Soluções, integrando um backend e frontend sem a utilização de frameworks
 
+## (K2-T6): REST/RESTFUL API
+A etapa consistia em fazer uma API RESTful sem o uso de frameworks. A tentativa não teve muito sucesso, já que alguns requisitos REST não foram seguidos, mas uma comunicação entre Backend e Frontend foi estabelecida. Além disso, ficaram faltando algumas conexões entre as páginas, que seriam o cadastro de competência do usuário (atualmente é feito somente o GET para mostrar elas), e também a conexão da vaga cadastrada com a respectiva empresa (atualmente o cadastro é feito apenas para a empresa de ID = 1). Não pesquisei como fazer isso ainda, mas uma alternativa seria armazenar no localstorage o CNPJ da empresa para fazer um GET para pegar o ID da empresa e conectar a empresa e a vaga.
+
 ## Executando o projeto
   No Intellij configure o Tomcat para que o endpoint da api seja http://localhost:8080/zghero. Os seguintes endpoints foram utilizados: </br>
   - /candidatos</br>

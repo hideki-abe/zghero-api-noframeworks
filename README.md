@@ -25,4 +25,4 @@ A seguir, dê o seguinte comando para iniciar o Frontend: **npm start**. Se nece
   - netstat -tulpn | grep 3000
   - kill (numero da porta utilizada)
 
-Após isso, entre na página inicial, a home.html, e a aplicação estará pronta para uso.
+Após isso, entre na página inicial( a home.html) pela extensão do Live Server, e a aplicação estará pronta para uso.

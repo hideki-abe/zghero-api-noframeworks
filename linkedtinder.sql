@@ -36,11 +36,13 @@ CREATE TABLE vagas (
 );
 
 CREATE TABLE candidatos_competencias (
+  id SERIAL PRIMARY KEY,
   id_candidatos INT REFERENCES candidatos(id) NOT NULL,
   id_competencias INT REFERENCES competencias(id) NOT NULL
 );
 
 CREATE TABLE vagas_competencias (
+  id SERIAL PRIMARY KEY,
   id_vagas INT REFERENCES empresas(id) NOT NULL,
   id_competencias INT REFERENCES competencias(id) NOT NULL
 );
